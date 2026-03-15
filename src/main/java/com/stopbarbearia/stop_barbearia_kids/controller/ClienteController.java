@@ -30,7 +30,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/cpf/{cpf}")
-    public void deleteByCpf(@RequestParam String cpf) {
+    public void deleteByCpf(@PathVariable String cpf) {
         clienteService.deleteClienteByCpf(cpf);
     }
 }

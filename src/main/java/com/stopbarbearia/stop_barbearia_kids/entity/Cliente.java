@@ -20,7 +20,7 @@ public class Cliente {
     @Column(name = "telefone")
     private String telefone;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
 
     public Cliente() {
@@ -57,7 +57,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public void setCfp(String cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 }
