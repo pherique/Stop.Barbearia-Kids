@@ -2,30 +2,35 @@ package com.stopbarbearia.stop_barbearia_kids.controller;
 
 import com.stopbarbearia.stop_barbearia_kids.entity.Cliente;
 import com.stopbarbearia.stop_barbearia_kids.repository.ClienteRepository;
+import com.stopbarbearia.stop_barbearia_kids.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "cliente")
+@RequestMapping("/cliente")
 public class ClienteController {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+
+    private ClienteService clienteService;
+
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
 
     @PostMapping
     public Cliente save(@RequestBody Cliente cliente) {
-        return clienteRepository.save(cliente);
+        return clienteService.saveCliente(cliente);
     }
 
-    @GetMapping
-    public List<Cliente> findAll() {
-        return clienteRepository.findAll();
+    @GetMapping("/cpf/{cpf}")
+    public Cliente getByCpf(@PathVariable String cpf) {
+        return clienteService.getClienteByCpf(cpf);
     }
 
-    @DeleteMapping
-    public void deleteAll() {
-        clienteRepository.deleteAll();
+    @DeleteMapping("/cpf/{cpf}")
+    public void deleteByCpf(@RequestParam String cpf) {
+        clienteService.deleteClienteByCpf(cpf);
     }
 }

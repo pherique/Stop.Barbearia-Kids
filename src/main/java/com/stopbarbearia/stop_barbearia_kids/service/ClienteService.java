@@ -12,16 +12,19 @@ import java.util.List;
 @Service
 public class ClienteService {
 
-    @Autowired
+
     private ClienteRepository clienteRepository;
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
     @Transactional
-    public void  saveCliente(Cliente cliente) {
+    public Cliente  saveCliente(Cliente cliente) {
        final var cliente1 = clienteRepository.findByCpf(cliente.getCpf());
        if (cliente1 != null) {
            throw  new RuntimeException("Cliente ja existe");
        }
-       clienteRepository.save(cliente);
+       return clienteRepository.save(cliente);
     }
 
     public Cliente getClienteByCpf(String cpf) {
