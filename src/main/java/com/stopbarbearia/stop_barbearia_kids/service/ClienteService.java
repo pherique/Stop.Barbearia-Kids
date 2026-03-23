@@ -1,6 +1,7 @@
 package com.stopbarbearia.stop_barbearia_kids.service;
 
 
+import com.stopbarbearia.stop_barbearia_kids.dto.ClienteRequestDTO;
 import com.stopbarbearia.stop_barbearia_kids.exception.ClienteJaExisteException;
 import com.stopbarbearia.stop_barbearia_kids.exception.ClienteNaoEncontradoException;
 import com.stopbarbearia.stop_barbearia_kids.entity.Cliente;
@@ -21,7 +22,14 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente  saveCliente(Cliente cliente) {
+    public Cliente  saveCliente(ClienteRequestDTO clienteDTO) {
+        Cliente cliente = new Cliente();
+
+        cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
+        cliente.setEmail(clienteDTO.getEmail());
+        cliente.setTelefone(clienteDTO.getTelefone());
+        cliente.setCpf(clienteDTO.getCpf());
+
        final var clienteExistente = clienteRepository.findByCpf(cliente.getCpf());
        if (clienteExistente != null) {
            throw new ClienteJaExisteException("Cliente já existe com esse CPF");

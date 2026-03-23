@@ -21,7 +21,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente save(@RequestBody ClienteRequestDTO clienteDTO) {
+    public Cliente saveCliente(@RequestBody ClienteRequestDTO clienteDTO) {
         return clienteService.saveCliente(clienteDTO);
     }
 
