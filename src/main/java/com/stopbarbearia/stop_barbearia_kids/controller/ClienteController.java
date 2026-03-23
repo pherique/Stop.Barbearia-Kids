@@ -1,9 +1,11 @@
 package com.stopbarbearia.stop_barbearia_kids.controller;
 
 import com.stopbarbearia.stop_barbearia_kids.dto.ClienteRequestDTO;
+import com.stopbarbearia.stop_barbearia_kids.dto.ClienteResponseDTO;
 import com.stopbarbearia.stop_barbearia_kids.entity.Cliente;
 import com.stopbarbearia.stop_barbearia_kids.repository.ClienteRepository;
 import com.stopbarbearia.stop_barbearia_kids.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +23,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente saveCliente(@RequestBody ClienteRequestDTO clienteDTO) {
+    public ClienteResponseDTO saveCliente(@RequestBody @Valid ClienteRequestDTO clienteDTO) {
         return clienteService.saveCliente(clienteDTO);
     }
 

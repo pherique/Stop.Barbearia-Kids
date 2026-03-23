@@ -2,6 +2,7 @@ package com.stopbarbearia.stop_barbearia_kids.service;
 
 
 import com.stopbarbearia.stop_barbearia_kids.dto.ClienteRequestDTO;
+import com.stopbarbearia.stop_barbearia_kids.dto.ClienteResponseDTO;
 import com.stopbarbearia.stop_barbearia_kids.exception.ClienteJaExisteException;
 import com.stopbarbearia.stop_barbearia_kids.exception.ClienteNaoEncontradoException;
 import com.stopbarbearia.stop_barbearia_kids.entity.Cliente;
@@ -22,7 +23,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente  saveCliente(ClienteRequestDTO clienteDTO) {
+    public ClienteResponseDTO saveCliente(ClienteRequestDTO clienteDTO) {
         Cliente cliente = new Cliente();
 
         cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
@@ -34,7 +35,14 @@ public class ClienteService {
        if (clienteExistente != null) {
            throw new ClienteJaExisteException("Cliente já existe com esse CPF");
        }
-       return clienteRepository.save(cliente);
+
+       Cliente clientesalvo = clienteRepository.save(cliente);
+       return new ClienteResponseDTO(
+               clientesalvo.getId(),
+               cliente.getNomeCompleto(),
+               cliente.getEmail(),
+               cliente.getTelefone()
+       );
     }
 
     public Cliente getClienteByCpf(String cpf) {
